@@ -1,0 +1,30 @@
+close all;
+clear;
+clc;
+disp('Function Integration using Trapezoidal Rule')
+disp('AVANI PANDE')
+disp('C22020551748')
+%Define Function
+f=inline('sin(x)-log(x)+exp(x)','x')
+%User input
+ninter=input('Enter number of intervals ');
+%n is number of data points
+n=ninter+1;
+a=input('Enter lower limit of the function ');
+b=input('Enter lower limit of the function ');
+%Generating data
+h=(b-a)/ninter;
+x=a:h:b
+y=f(x)
+sum=0;
+for i=1:1:n-1
+h(i)=x(i+1)-x(i);
+htemp=h(i)/2;
+temp=y(i)+y(i+1);
+sum=sum+(htemp*temp);
+end
+disp('Value of Integral')
+sum
+%-------- MATLAB SOLVER ------
+disp('ANSWER BY MATLAB SOLVER')
+intans=quadv(f,a,b)

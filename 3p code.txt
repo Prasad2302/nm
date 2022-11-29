@@ -1,0 +1,34 @@
+close all;
+clear;
+clc;
+disp('Gauss Legendre 3 point formula')
+disp('Avani pande')
+disp('C22020551748')
+%Define Function
+f=inline('sin(x)-log(x)+exp(x)','x')
+%User input
+a=input('Enter lower limit of the function ');
+b=input('Enter upper limit of the function ');
+%Define constants
+c0=5/9;
+c1=8/9;
+c2=5/9;
+xd1=-sqrt(3/5);
+xd2=0;
+xd3=sqrt(3/5);
+%Compute constants
+a0=(b+a)/2;
+a1=(b-a)/2;
+x_xd1=a0+(a1*xd1);
+x_xd2=a0+(a1*xd2);
+x_xd3=a0+(a1*xd3);
+%Integration
+f1=f(x_xd1);
+f2=f(x_xd2);
+f3=f(x_xd3);
+I1=(c0*f1)+(c1*f2)+(c2*f3);
+disp('Value of the integral is ')
+I=a1*I1
+%------ MATLAB SOLVER ------
+disp('ANSWER BY MATLAB SOLVER')
+I2=quadv(f,a,b)
