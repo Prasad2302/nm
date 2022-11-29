@@ -1,0 +1,42 @@
+close all
+clear
+clc
+disp('Heuns Method')
+disp('C22020551748')
+f = inline('log10(x+y)','x','y');
+%User Input
+x0=input('Enter the value of x0 ');
+y0=input('Enter the value of y0 ');
+xsol=input('Enter the value of xsol ');
+h=input('Enter the step size ');
+accuracy=input('Enter accuracy')
+n=round((xsol-x0)/h);
+x=x0:h:xsol;
+y(1)=y0;
+fprintf('\n Step Iter x(i) x(i+1) ypred ycorr' )
+for i=1:n
+slope=f(x(i),y(i));
+ypred=y(i)+h*slope;
+error=100;
+iter=0;
+while error>accuracy
+iter=iter+1;
+slope1=f(x(i),y(i));
+slope2=f(x(i+1),ypred);
+avgslope=0.5*(slope1+slope2);
+ycorr=y(i)+h*avgslope;
+error = abs(ypred-ycorr);
+fprintf('\n %d %d %.4f %.4f %.4f %.4f' ,i,iter,x(i),x(i+1),
+ypred,ycorr)
+ypred=ycorr;
+end
+y(i+1)=ycorr;
+end
+fprintf('\n')
+disp('Y Solution is ')
+ycorr
+%----- MATLAB SOLVER-------
+disp('ANSWER BY MATLAB SOLVER')
+[xnew ynew] =ode23(f,[x0,xsol],[y0]);
+q=length(xnew);
+yans=ynew(q)

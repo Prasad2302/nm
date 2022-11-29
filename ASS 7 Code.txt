@@ -1,0 +1,36 @@
+close all;
+clear all;
+clc;
+%C22020551748
+%One-Dimensional Transient Heat Conduction
+f=inline('50*(4-x)','x');
+disp(' Enter length of the rod ')
+Lx=input('');
+disp(' Enter length of time span')
+Lt=input('');
+disp('Enter uniform spacing x')
+hx=input('');
+disp('Enter uniform spacing t')
+ht=input('');
+disp('Enter thermal diffusivity')
+alpha=input('');
+T_left=0;
+T_right=0;
+nx=(Lx/hx)+1
+nt=(Lt/ht)+1
+lambda=(alpha*ht)/(hx^2)
+x=0:hx:Lx
+T = zeros(nx, nt);
+for j=1:nt
+T(1,:)=T_left;
+T(nx, :)=T_right;
+end
+for i=2:nx-1
+T(i,1)=f(x(i));
+end
+for j=1:nt-1
+for i=2:nx-1
+T(i,j+1)=T(i,j) + lambda*(T(i+1,j)-2*T(i,j)+T(i-1,j));
+end
+end
+T

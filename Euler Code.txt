@@ -1,0 +1,28 @@
+close all
+clear
+clc
+disp('Eulers Method for ODE')
+disp('C22020551748')
+fdash = inline('(y^2-x^2)/(y^2+x^2)','x','y')
+x0 = input('Enter initial value of x(xo): ');
+y0 = input('Enter initial value of y(y0): ');
+h = input('Enter step size: ');
+xsoln = input('Enter xsoln: ');
+n = round((xsoln-x0)/h);
+y(1) = y0;
+x = x0 : h : xsoln;
+niter = 0;
+fprintf('\n x y')
+for i = 1:n
+niter = niter+1;
+y(i+1) = y(i) + h*fdash(x(i),y(i));
+fprintf('\n %.4f %.4f',x(i), y(i))
+end
+fprintf('\n')
+disp('ANSWER')
+ysoln = y(n+1)
+%----- MATLAB SOLVER-------
+disp('ANSWER BY MATLAB SOLVER')
+[xnew ynew] =ode23(fdash,[x0,xsoln],[y0]);
+q=length(xnew);
+yans=ynew(q)

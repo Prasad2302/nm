@@ -1,0 +1,29 @@
+close all
+clear
+clc
+disp('RK4 Method for ODE')
+disp('C22020551748')
+f = inline('(y^2-x^2)/(y^2+x^2)','x','y')
+x0 = input('Enter initial value of x(xo): ');
+y0 = input('Enter initial value of y(y0): ');
+h = input('Enter step size: ');
+xsoln = input('Enter xsoln: ');
+n = round((xsoln-x0)/h)
+y(1) = y0;
+x = x0 : h : xsoln;
+for i = 1:n
+k1 = f(x(i),y(i));
+k2 = f((x(i)+(h/2)),(y(i)+(h/2)*k1));
+k3 = f((x(i)+(h/2)),(y(i)+(h/2)*k2));
+k4 = f((x(i)+h),(y(i)+h*k3));
+y(i+1) = y(1)+(h/6)*(k1+2*k2+2*k3+k4);
+end
+fprintf('\n')
+disp('ANSWER')
+ysoln = y(n+1);
+ysoln
+%----- MATLAB SOLVER-------
+disp('ANSWER BY MATLAB SOLVER')
+[xnew ynew] =ode23(f,[x0,xsoln],[y0]);
+q=length(xnew);
+yans=ynew(q)
