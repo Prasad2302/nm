@@ -1,0 +1,28 @@
+close all;
+clc;
+disp('C22020551748');
+disp('inverse lagrange');
+n=input('Enter number of data points');
+for i=1:n
+y(i)=input('Enter data points for y ');
+end;
+for i=1:n
+x(i)=input('Enter data points for x ');
+end;
+yint=input('Enter value to be interpolated ');
+sum=0;
+for i=1:n
+N=1;
+D=1;
+for j=1:n
+if i~=j
+N=N*(yint-y(j));
+D=D*(y(i)-y(j));
+end;
+end;
+sum=sum+(N/D)*x(i);
+end;
+sum
+%-------MATLAB SOLVER FOR INTERPOLATION----------
+s=interp1(y,x,yint,'linear')
+s=interp1(y,x,yint,'spline')

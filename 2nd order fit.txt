@@ -1,0 +1,47 @@
+close all;
+clear;
+clc;
+disp('C22020551748')
+disp('Curve fitting for second order ')
+n=input('Enter number of data points')
+%Accepting data
+for i=1:n
+x(i)=input('Enter value of x')
+end
+for i=1:n
+y(i)=input('Enter value of y')
+end
+%LHS Co-efficient matrix
+sumx4=sum(x.*x.*x.*x);
+sumx3=sum(x.*x.*x);
+sumx2=sum(x.*x);
+sumx=sum(x);
+p=[sumx4 sumx3 sumx2; sumx3 sumx2 sumx; sumx2 sumx n]
+%RHS Constant matrix
+sumx2y=sum(x.*x.*y);
+sumxy=sum(x.*y);
+sumy=sum(y);
+q=[sumx2y; sumxy ; sumy]
+%Solve
+soln=p\q;
+a=soln(1);
+b=soln(2);
+c=soln(3);
+%Equation
+fprintf('y = %f x2 + %f x + %f',a,b,c)
+%Plot datapoints
+plot(x,y,'o')
+hold on
+grid on
+%Plot curve
+xmin=min(x);
+xmax=max(x);
+x1=linspace(xmin,xmax,100);
+y1=(a.*x1.*x1)+(b.*x1)+(c);
+plot(x1,y1,'g')
+
+%----- USING MATLAB SOLVER -------
+matsol=polyfit(x,y,2);
+a_mat=matsol(1)
+b_mat=matsol(2)
+c_mat=matsol(3)

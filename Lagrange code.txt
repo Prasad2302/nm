@@ -1,0 +1,34 @@
+close all;
+clc;
+disp('C22020551748');
+n = input('Enter no. of data points = ');
+disp('Enter values of x')
+for i=1:n
+x(i)= input(' ');
+end
+disp('Enter values of y')
+for i=1:n
+y(i)=input(' ');
+end
+xint = input('x = ');
+x
+y
+xint
+sum = 0;
+for i=1:n
+N=1;
+D=1;
+for j=1:n
+if j~=i;
+N = N*(xint-x(j));
+D = D*(x(i)-x(j));
+end
+end
+sum = sum + ((N/D)*y(i));
+
+end
+Y = sum;
+Y
+%-------MATLAB SOLVER FOR INTERPOLATION----------
+s=interp1(x,y,xint,'linear')
+s=interp1(x,y,xint,'spline')

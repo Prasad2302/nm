@@ -1,0 +1,41 @@
+close all
+clear
+clc
+disp('Newton Forward Difference Interpolation')
+disp('C22020551748')
+n = input('No. of data points:');
+disp('Enter values of x: ')
+for i=1:n
+x(i) = input('');
+end
+x_original=x;
+disp('Enter values of y: ')
+for i=1:n
+y(i,1) = input('');
+end
+y_original=y;
+xint = input('Enter value of xint: ')
+
+T = y(:,1);
+
+for i=2:n
+temp = diff(T(:,i-1));
+temp = [temp;NaN];
+T(:,i) = temp;
+end
+T
+z = T(1,:);
+Sum = z(1);
+Prod = 1;
+for i = 2:n
+r = (xint - x(1))/(x(2)-x(1));
+Prod = Prod*(r-(i-2));
+GenForm = [z(i)/factorial(i-1)]*Prod;
+Sum = Sum + GenForm;
+end
+disp('Value of y at required value of x is')
+Sum
+%-------MATLAB SOLVER--------
+disp('ANSWER BY MATLAB SOLVER')
+ans=interp1(x_original,y_original,xint,'linear')
+ans=interp1(x_original,y_original,xint,'spline')

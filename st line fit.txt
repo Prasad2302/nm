@@ -1,0 +1,42 @@
+close all;
+clear;
+clc;
+disp('C22020551748')
+disp('Straight line fit')
+n=input('Enter number of data points')
+%Accepting data
+for i=1:n
+x(i)=input('Enter value of x')
+end
+for i=1:n
+y(i)=input('Enter value of y')
+end
+%LHS Co-efficient matrix
+sumxx=sum(x.*x);
+sumx=sum(x);
+p=[sumxx sumx ; sumx n]
+%RHS Constant matrix
+sumxy=sum(x.*y);
+sumy=sum(y);
+q=[sumxy ; sumy]
+%Solve
+soln=p\q;
+a=soln(1);
+b=soln(2);
+%Equation
+fprintf('y = %f x + %f',a,b)
+%Plot datapoints
+plot(x,y,'o')
+hold on
+grid on
+%Plot curve
+xmin=min(x);
+xmax=max(x);
+x1=linspace(xmin,xmax,100);
+y1=(a.*x1)+b;
+plot(x1,y1,'g')
+%----- USING MATLAB SOLVER -------
+disp('MATLAB SOLVER')
+matsol=polyfit(x,y,1);
+a_mat=matsol(1)
+b_mat=matsol(2)

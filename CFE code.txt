@@ -1,0 +1,61 @@
+close all;
+clear;
+clc;
+disp('avani pande')
+disp('C22020551748')
+disp('Linearization for curve fiting- Exponential' )
+
+n=input('Enter number of data points')
+for i=1:n
+x(i)=input('Enter x');
+end
+for j=1:n
+y(j)=input('Enter y');
+end
+X=x;
+Y=log(y);
+sumx=sum(X);
+sumxx=sum(X.*X);
+sumxy=sum(X.*Y);
+sumy=sum(Y);
+p=[sumxx sumx; sumx n];
+q=[sumxy; sumy];
+soln=p\q;
+A=soln(1);
+B=soln(2);
+a=exp(B)
+b=A
+%Plot graph of linearized data points
+figure(1)
+plot(X,Y,'s')
+hold on;
+grid on;
+minX=min(X);
+maxX=max(X);
+X1=linspace(minX, maxX, 100);
+Y1=A*X1+B;
+plot(X1,Y1,'r')
+xlabel('X')
+ylabel('Y')
+title('Graph of linearized data')
+
+%Plot graph of original data points
+figure(2)
+plot(x,y,'o')
+hold on;
+grid on;
+minx=min(x);
+maxx=max(x);
+x1=linspace(minx, maxx, 100);
+y1=a*exp(b*x1);
+plot(x1,y1,'g')
+xlabel('x')
+ylabel('y')
+title('Graph of original data')
+
+%MATLAB SOLVER
+matsol=polyfit(x,y,1);
+A_mat=matsol(1)
+B_mat=matsol(2)
+a_mat=exp(B_mat)
+b_mat=A_mat
