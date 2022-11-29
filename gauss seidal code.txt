@@ -1,0 +1,60 @@
+close all;
+clear;
+clc;
+disp('Gauss Seidel Iterative Method')
+disp('Avani Pande')
+disp('C22020551748')
+m=input('Enter number of equations');
+n=input('Enter number of unknowns');
+if(m~=n)
+disp('Number of equations not equal to number of unknowns' )
+return;
+end
+%Form LHS matrix
+disp('Enter the elements of LHS')
+for i=1:n
+for j=1:n
+a(i,j)=input('');
+end
+end
+a
+%Check if det(A)=0
+if det(a)==0
+disp('No solution exists')
+return;
+end
+%Form RHS matrix
+disp('Enter elements of RHS')
+for i=1:n
+b(i,1)=input('');
+end
+b
+%------- MATLAB Solver -------
+soln=a\b;
+x1=soln(1)
+x2=soln(2)
+x3=soln(3)
+%initial guess 0,0,0
+x=zeros(n,1)
+accuracy=input('Enter expected accuracy')
+maxerror=1000;
+iter=0
+fprintf('\n Iter x1 x2 x3')
+while (maxerror>accuracy)
+iter=iter+1;
+xold=x;
+%forming x(1),x(2),..,x(n)
+for i=1:n
+sum=0;
+for j=1:n
+if (i~=j)
+sum=sum+(a(i,j)*x(j));
+end
+end
+x(i)=(b(i,1)-sum)/a(i,i);
+error=abs(xold(i)-x(i));
+end
+maxerror=max(error);
+fprintf('\n %.f %.2f %.2f %.2f',iter,x(1),x(2),x(3))
+end
+x

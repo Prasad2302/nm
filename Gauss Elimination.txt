@@ -1,0 +1,49 @@
+close all;
+clear;
+clc;
+disp('Gauss Elimination')
+disp('avani pande')
+disp('C22020551748')
+m=input('Enter number of equations');
+n=input('Enter number of unknowns');
+%Form LHS matrix
+disp('Enter the elements of LHS')
+for i=1:n
+for j=1:n
+c(i,j)=input('');
+end
+end
+c
+%Form RHS matrix
+disp('Enter elements of RHS')
+for i=1:n
+b(i,1)=input('');
+end
+b
+%------- MATLAB Solver -------
+disp('ANSWER BY MATLAB SOLVER')
+soln=c\b;
+x1=soln(1)
+x2=soln(2)
+x3=soln(3)
+a=[c b]
+%Form upper triangular matrix
+for i=1:1:n-1
+for j=i+1:1:n
+a(j,:)=a(j,:)-((a(j,i)/a(i,i))*a(i,:));
+end
+end
+a
+
+%Compute last element
+x(n)=a(n,n+1)/a(n,n);
+
+%Finding solution
+for i=n-1:-1:1
+sum=0;
+for j=i+1:1:n
+sum=sum+(a(i,j)*x(j));
+end
+x(i)=(a(i,n+1)-sum)/(a(i,i));
+end
+x

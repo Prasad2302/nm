@@ -1,0 +1,55 @@
+close all;
+clear;
+clc;
+%Jacobi Iterative Method
+%C22020551748
+m=input('number of equations: ');
+n=input('number of unknowns: ');
+accu=input('Enter Accuracy: ');
+if(m~=n)
+disp('Number of equations are not equal to number of unknowns.' )
+return;
+end
+disp('Enter the elements of coefficient matrix ' )
+for i=1:n
+for j=1:n
+a(i,j)=input(' ');
+end
+end
+a
+if(det(a)==0)
+disp('No unique solution exixts')
+return;
+end
+disp('Enter the elements of RHS coefficient vector' )
+for i=1:n
+b(i,1)=input(' ');
+end
+b
+%-------MATLAB SOLVER---------
+fprintf('\n ')
+disp('Answer by MATLAB SOLVER')
+soln=a\b;
+x1=soln(1)
+x2=soln(2)
+x3=soln(3)
+x=zeros(n,1);
+maxerror=10;
+niter=0;
+while(maxerror>accu)
+niter=niter+1;
+xold=x;
+for i=1:n
+sum=0;
+for j=1:n
+if(j~=i)
+sum=sum+a(i,j)*xold(j);
+end
+end
+x(i)=(b(i,1)-sum)/a(i,i);
+error(i)=abs(x(i)-xold(i));
+end
+maxerror=max(error);
+end
+x
+fprintf('\n%d', niter)
