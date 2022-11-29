@@ -1,0 +1,31 @@
+close all;
+clear;
+clc;
+disp('Newton Raphson Method')
+disp('Avani Pande')
+disp('C22020551748')
+f=inline('x.*sin(x)+cos(x)','x')
+fder=inline('x.*cos(x)','x');
+x=linspace(-50,50,500);
+y=f(x);
+plot(x,y,'b')
+grid on;
+disp('Enter initial guess')
+xold=input('')
+accuracy=input('Enter expected accuracy')
+error=10;
+disp('Iterno Xold Xnew Error')
+iter=0;
+while(error>accuracy)
+iter=iter+1;
+y1=f(xold);
+y2=fder(xold);
+xnew=xold-(y1/y2);
+error=abs(xold-xnew);
+xold=xnew;
+fprintf('\n %.f %.4f %.4f %.4f',iter, xold, xnew, error)
+end
+fprintf('\n Root of the equation is %f \n',xnew)
+%---------- MATLAB Solver ----------
+disp('Answer by MATLAB Solver')
+root=fzero(f,xold)

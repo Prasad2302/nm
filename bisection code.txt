@@ -1,0 +1,40 @@
+close all;
+clear;
+clc;
+disp('Bisection Method')
+disp('Avani pande')
+disp('C220220551748')
+f=inline('(x.*exp(x))-(3.1*cos(x))','x')
+%Getting correct initial guess values
+a=input('Enter first guess');
+amat=a;
+b=input('Enter second guess');
+bmat=b;
+iter=input('Enter number of iterations');
+y1=f(a);
+y2=f(b);
+while(y1*y2>0)
+a=input('Enter first guess again');
+b=input('Enter second guess again');
+y1=f(a);
+y2=f(b);
+end
+fprintf('\n IterNo a f(a) b f(b) c f(c)' )
+for i=1:1:iter
+c=(a+b)/2;
+y3=f(c);
+fprintf('\n%d %.2f %.2f %.2f %.2f %.2f %.2f' ,i,a,y1,b,y2,c,y3)
+if(y1*y3<0)
+b=c;
+y2=y3;
+else
+a=c;
+y1=y3;
+end
+end
+fprintf('\n')
+disp('Solution')
+c
+%--------MATLAB SOLVER-----------
+disp('ANSWER BY MATLAB SOLVER')
+root=fzero(f,[amat,bmat])
